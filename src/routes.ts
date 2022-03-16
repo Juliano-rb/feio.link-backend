@@ -1,11 +1,14 @@
 import { Router } from 'express'
-import { HelloWorldController } from './controllers/HelloWorldController'
+import { ShortenerController } from './controllers/ShortenerController'
 
-const helloWorldController = new HelloWorldController()
+const shortenerController = new ShortenerController()
 
 const routes = Router()
 
-routes.get('/', (req, res) => helloWorldController.hello(req, res))
+// shorten
+routes.get('/shorten', (req, res) => shortenerController.hello(req, res))
+// undo shorten and redirect
+routes.get('/r', (req, res) => res.send('<h1>Ola Mylena</h1>'))
 
 
 export { routes }
