@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { ParsedQs } from "qs";
 import { UglyIdGenerator } from "../domain/UglyIdGenerator";
 import { ConnectionManager } from "../model/Connection";
 import { Url } from "../model/entity/Url";
@@ -24,5 +25,19 @@ export class ShortenerController {
     const savedUrl = await urlRepository.save(url);
 
     return res.json(savedUrl);
+  }
+
+  public async redirect(req: Request, res: Response) {
+    const { urlId } = req.params;
+
+    const connection = await ConnectionManager.getConnection();
+    const urlRepository = connection.getRepository(Url);
+
+    try {
+      const foundUrl = await urlRepository.findOneOrFail(urlId);
+      return res.redirect(302, `http://${foundUrl.originalUrl}`);
+    } catch (error) {
+      return res.sendStatus(404);
+    }
   }
 }
