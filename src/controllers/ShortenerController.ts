@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { ConnectionManager } from "../Connection";
-import { User } from "../entity/User";
+import { ConnectionManager } from "../database/Connection";
+import { User } from "../database/entity/User";
 
 const db = async () => {
   const connection = await ConnectionManager.getConnection();
