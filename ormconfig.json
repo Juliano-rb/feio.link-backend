@@ -7,18 +7,10 @@
   "database": "test.db",
   "synchronize": false,
   "logging": false,
-  "entities": ["src/database/entity/**/*.ts", "dist/database/entity/**/*.js"],
-  "migrations": [
-    "src/database/migration/**/*.ts",
-    "dist/database/migration/**/*.js"
-  ],
-  "subscribers": [
-    "src/database/subscriber/**/*.ts",
-    "dist/database/subscriber/**/*.js"
-  ],
+  "entities": ["src/model/entity/**/*.ts", "dist/model/entity/**/*.js"],
+  "migrations": ["src/model/migration/**/*.ts"],
+  "subscribers": ["src/model/subscriber/**/*.ts"],
   "cli": {
-    "entitiesDir": "src/database/entity",
-    "migrationsDir": "src/database/migration",
-    "subscribersDir": "src/database/subscriber"
+    "migrationsDir": "src/model/migration"
   }
 }
