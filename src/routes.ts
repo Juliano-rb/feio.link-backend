@@ -1,14 +1,14 @@
-import { Router } from 'express'
-import { ShortenerController } from './controllers/ShortenerController'
+import { Router } from "express";
+import { ShortenerController } from "./controllers/ShortenerController";
 
-const shortenerController = new ShortenerController()
+const shortenerController = new ShortenerController();
 
-const routes = Router()
+const routes = Router();
 
 // shorten
-routes.get('/shorten', (req, res) => shortenerController.hello(req, res))
+routes.post("/", (req, res) => shortenerController.shorten(req, res));
+
 // undo shorten and redirect
-routes.get('/r', (req, res) => res.send('<h1>Ola Mylena</h1>'))
+routes.get("/r", (req, res) => res.send("<h1>Ola Mylena</h1>"));
 
-
-export { routes }
+export { routes };

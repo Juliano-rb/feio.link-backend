@@ -16,9 +16,6 @@ const db = async () => {
   const users = await connection.manager.find(User);
 
   return users;
-  console.log("Loaded users: ", users);
-
-  console.log("Here you can setup and run express/koa/any other framework.");
 };
 
 export class ShortenerController {
@@ -30,7 +27,8 @@ export class ShortenerController {
     return res.json(users);
   }
 
-  public async shorten(req: Request, res: Response): Promise<Response> {
-    return res.json({ message: "Hello Worlds" });
+  public async shorten({ body }: Request, res: Response): Promise<Response> {
+    const { url } = body;
+    return res.json({ message: url });
   }
 }
