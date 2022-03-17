@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { UglyIdGenerator } from "../domain/UglyIdGenerator";
 import { ConnectionManager } from "../model/Connection";
 import { Url } from "../model/entity/Url";
 
@@ -15,9 +16,11 @@ export class ShortenerController {
     const connection = await ConnectionManager.getConnection();
     const urlRepository = connection.getRepository(Url);
 
+    const uglyIdGenerator = new UglyIdGenerator();
+
     const url = new Url();
     url.originalUrl = body.url;
-    url.shortedUrlID = Math.floor(Math.random() * 100).toString();
+    url.shortUrlID = await uglyIdGenerator.generateRandomUglyId();
     const savedUrl = await urlRepository.save(url);
 
     return res.json(savedUrl);
