@@ -1,10 +1,9 @@
-import { Request, Response } from 'express'
-import { Connection } from 'typeorm';
-import { connectionManager } from "../Connection";
-import { User } from '../entity/User';
+import { Request, Response } from "express";
+import { ConnectionManager } from "../Connection";
+import { User } from "../entity/User";
 
 const db = async () => {
-  const connection = await connectionManager.getConnection();
+  const connection = await ConnectionManager.getConnection();
   console.log("Inserting a new user into the database...");
   const user = new User();
   user.firstName = "Timber";
@@ -20,21 +19,18 @@ const db = async () => {
   console.log("Loaded users: ", users);
 
   console.log("Here you can setup and run express/koa/any other framework.");
-
-}
+};
 
 export class ShortenerController {
-  constructor () {
-    
+  constructor() {}
+
+  public async hello(req: Request, res: Response): Promise<Response> {
+    const users = await db();
+
+    return res.json(users);
   }
 
-  public async hello (req: Request, res: Response): Promise<Response> {
-    const users = await db()
-
-    return res.json(users)
-  }
-
-  public async shorten (req: Request, res: Response): Promise<Response> {
-    return res.json({message: "Hello Worlds"})
+  public async shorten(req: Request, res: Response): Promise<Response> {
+    return res.json({ message: "Hello Worlds" });
   }
 }

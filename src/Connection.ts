@@ -1,17 +1,14 @@
-import {Connection, createConnection} from "typeorm";
+import { Connection, createConnection } from "typeorm";
 
 class ConnectionManager {
-    private connection: Connection | undefined;
-    constructor (){
+  private static connection: Connection | undefined;
+  constructor() {}
+  public static async getConnection(): Promise<Connection> {
+    if (!ConnectionManager.connection) {
+      ConnectionManager.connection = await createConnection();
     }
-    public async getConnection(): Promise<Connection> {
-        if(!this.connection){
-            this.connection = await createConnection()
-        }
-        return this.connection
-    }
+    return ConnectionManager.connection;
+  }
 }
 
-const connectionManager = new ConnectionManager()
-
-export {connectionManager}
+export { ConnectionManager };
