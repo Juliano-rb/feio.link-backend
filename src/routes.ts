@@ -9,6 +9,6 @@ const routes = Router();
 routes.post("/", (req, res) => shortenerController.shorten(req, res));
 
 // undo shorten and redirect
-routes.get("/", (req, res) => shortenerController.hello(req, res));
+routes.get("/list", (req, res) => shortenerController.list(req, res));
 
 export { routes };

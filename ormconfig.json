@@ -4,7 +4,7 @@
   "port": 3306,
   "username": "test",
   "password": "test",
-  "database": "test.db",
+  "database": "test.sqlite",
   "synchronize": false,
   "logging": false,
   "entities": ["src/model/entity/**/*.ts", "dist/model/entity/**/*.js"],

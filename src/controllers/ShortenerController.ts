@@ -1,34 +1,25 @@
 import { Request, Response } from "express";
 import { ConnectionManager } from "../model/Connection";
-import { User } from "../model/entity/User";
-
-const db = async () => {
-  const connection = await ConnectionManager.getConnection();
-  console.log("Inserting a new user into the database...");
-  const user = new User();
-  user.firstName = "Timber";
-  user.lastName = "Saw";
-  user.age = 25;
-  await connection.manager.save(user);
-  console.log("Saved a new user with id: " + user.id);
-
-  console.log("Loading users from the database...");
-  const users = await connection.manager.find(User);
-
-  return users;
-};
+import { Url } from "../model/entity/Url";
 
 export class ShortenerController {
-  constructor() {}
+  public async list(req: Request, res: Response): Promise<Response> {
+    const connection = await ConnectionManager.getConnection();
+    const urlRepository = connection.getRepository(Url);
+    const urls = await urlRepository.find();
 
-  public async hello(req: Request, res: Response): Promise<Response> {
-    const users = await db();
-
-    return res.json(users);
+    return res.json(urls);
   }
 
   public async shorten({ body }: Request, res: Response): Promise<Response> {
-    const { url } = body;
-    return res.json({ message: url });
+    const connection = await ConnectionManager.getConnection();
+    const urlRepository = connection.getRepository(Url);
+
+    const url = new Url();
+    url.originalUrl = body.url;
+    url.shortedUrlID = Math.floor(Math.random() * 100).toString();
+    const savedUrl = await urlRepository.save(url);
+
+    return res.json(savedUrl);
   }
 }
