@@ -6,7 +6,7 @@ const ssl = NODE_ENV === "production" ? true : false;
 
 module.exports = {
   type: "postgres",
-  url: `${process.env.DATABASE_URL}${ssl ? "?sslmode=require" : ""}`,
+  url: `${process.env.DATABASE_URL}`,
   synchronize: false,
   logging: false,
   extra: {
