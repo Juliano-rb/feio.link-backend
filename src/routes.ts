@@ -5,6 +5,10 @@ const shortenerController = new ShortenerController();
 
 const routes = Router();
 
+routes.get("/", (req, res) => {
+  return res.send("Nothing here bro");
+});
+
 // shorten
 routes.post("/", (req, res) => shortenerController.shorten(req, res));
 
