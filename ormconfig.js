@@ -1,8 +1,8 @@
 require("dotenv").config();
 
-const basePath = process.env.NODE_ENV === "DEV" ? "src" : "dist";
+const basePath = process.env.NODE_ENV === "development" ? "src" : "dist";
 const NODE_ENV = process.env.NODE_ENV;
-const ssl = NODE_ENV === "PROD" ? true : false;
+const ssl = NODE_ENV === "production" ? true : false;
 
 module.exports = {
   type: "postgres",

@@ -16,7 +16,7 @@ routes.post("/", (req, res) => shortenerController.shorten(req, res));
 routes.get("/:urlId", (req, res) => shortenerController.redirect(req, res));
 
 // list all only in dev
-if (process.env.NODE_ENV === "DEV")
+if (process.env.NODE_ENV === "development")
   routes.get("/list/a", (req, res) => shortenerController.list(req, res));
 
 export { routes };
